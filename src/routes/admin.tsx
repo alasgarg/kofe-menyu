@@ -93,7 +93,10 @@ function AdminPage() {
     const { error } = await supabase
       .from("categories")
       .insert({ name: catName, sort_order: categories.length });
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     setCatName("");
     toast.success("Kateqoriya əlavə olundu");
     refresh();
@@ -101,7 +104,10 @@ function AdminPage() {
 
   async function deleteCategory(id: string) {
     const { error } = await supabase.from("categories").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Kateqoriya silindi");
     refresh();
   }
@@ -117,7 +123,10 @@ function AdminPage() {
       is_available: form.is_available,
       sort_order: items.length,
     });
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     setForm({
       name: "",
       description: "",
@@ -135,13 +144,19 @@ function AdminPage() {
       .from("menu_items")
       .update({ is_available: value })
       .eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     refresh();
   }
 
   async function deleteItem(id: string) {
     const { error } = await supabase.from("menu_items").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Məhsul silindi");
     refresh();
   }
